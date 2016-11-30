@@ -37,7 +37,7 @@ function entryPoint() {
     const pathToPages = path.join( __dirname, 'frontend', 'js', 'pages' );
     let getEntryPoint = getEntries( pathToPages );
     let entryPoint = {};
-    
+
     for( let keys in getEntryPoint ) {
         let pathParse = path.parse( getEntryPoint[ keys ] );
         if( NODE_ENV == 'production' && pathParse.name == 'index' ) {
@@ -46,7 +46,7 @@ function entryPoint() {
             entryPoint[ pathParse.name ] = './' + pathParse.name;
         }
     }
-    
+
     return entryPoint;
 }
 

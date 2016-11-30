@@ -2,9 +2,8 @@
   "name": "webpack",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=development webpack --colors --progress --config ",
     "prod": "NODE_ENV=production webpack --colors --progress --config  -p"
   },
