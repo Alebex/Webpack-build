@@ -1,0 +1,39 @@
+.title {
+    display: block;
+    text-align: center;
+    margin-top: 3em;
+    color: lighten(#000, 40%);
+}
+
+.btn {
+    width: 100px;
+    height: 25px;
+    background-color: transparent;
+    border: 2px solid blue;
+    color: blue;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transition: all .3s;
+    cursor: pointer;
+    outline: none;
+    margin: 3em auto 0;
+    display: block;
+    &:hover {
+        border: 2px solid darken(blue, 15%);
+        color: darken(blue, 15%);
+    }
+}
+
+.active {
+    border: 2px solid lighten(red, 30%);
+    color: lighten(red, 30%);
+    &:hover {
+        border: 2px solid lighten(red, 10%);
+        color: lighten(red, 10%);
+    }
+}
+
+.ms-options-wrap {
+    width: 15em;
+    margin: 6em auto 0;
+}

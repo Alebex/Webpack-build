@@ -1,0 +1,30 @@
+// -- Media Queries
+//•••••••••••••••••••••••
+@mixin respond($wigth, $device: 'desktop') {
+    @if $device=='desktop' {
+        @media only screen and (max-width: $wigth + px) {
+            @content;
+        }
+    } @else if $device=='mobile' {
+        @media only screen and (min-width: $wigth + px) {
+            @content;
+        }
+    }
+}
+
+// -- Placeholder
+//•••••••••••••••••••••••
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content
+    }
+    &:-moz-placeholder {
+        @content
+    }
+    &::-moz-placeholder {
+        @content
+    }
+    &:-ms-input-placeholder {
+        @content
+    }
+}

@@ -1,0 +1,8 @@
+<div class="index-container">
+    <div class="index-container__wrapper">
+        <h1 class="index-container__title">{{ title }}</h1>
+        {% for page in pages %}
+            <a href="{{ page.href }}" class="index-container__page">{{ page.name }}</a>
+        {% endfor %}
+    </div>
+</div>

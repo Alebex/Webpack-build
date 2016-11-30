@@ -1,0 +1,13 @@
+{
+    "button": {
+        "login": "login",
+        "logout": "logout"
+    },
+    "options": [
+        "JSON_option_1",
+        "JSON_option_2",
+        "JSON_option_3",
+        "JSON_option_4",
+        "JSON_option_5"
+    ]
+}

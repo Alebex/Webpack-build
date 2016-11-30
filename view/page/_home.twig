@@ -1,0 +1,6 @@
+<h1 class="title">HOME PAGE</h1>
+<select name="" id="select" class="select" multiple="multiple">
+    {% for opt in options %}
+        <option value="{{ loop.index }}" class="select__option">{{ opt }}</option>
+    {% endfor %}
+</select>
