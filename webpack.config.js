@@ -50,7 +50,7 @@ function entryPoint() {
     return entryPoint;
 }
 
-function addPlugin( obj ) {
+function addHtmlPlugin( obj ) {
     for( let keys in obj ) {
         plugins.push(
             new HtmlWebpackPlugin( addHTML( keys ) )
@@ -132,7 +132,7 @@ const plugins = [
     } )
 ];
 
-addPlugin( entryPoint() );
+addHtmlPlugin( entryPoint() );
 
 // -- minify js code from production
 if( NODE_ENV == 'production' ) {
