@@ -68,7 +68,6 @@ const config = {
         ui    : false,
         server: { baseDir: [ 'public' ] }
     },
-    entryPoint: entryPoint(),
     paths     : {
         dev : {
             main: path.join( __dirname, 'frontend' ),
@@ -86,6 +85,7 @@ const config = {
 //==============================
 // -- Plugins
 //==============================
+// -- webpuck plugins
 const plugins = [
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin( {
@@ -94,8 +94,7 @@ const plugins = [
         getEntry: JSON.stringify( entryPoint() )
     } ),
     new BrowserSyncPlugin( config.bs, {
-        reload: true,
-        // callback:  function(err, bs) {}
+        reload: true
     } ),
     new CleanWebpackPlugin( config.paths.main, {
         root   : __dirname,
@@ -152,7 +151,7 @@ if( NODE_ENV == 'production' ) {
 //==============================
 const webpackExports = {
     context      : config.paths.dev.js,
-    entry        : config.entryPoint,
+    entry        : entryPoint(),
     output       : {
         path      : config.paths.main + '/',
         publicPath: NODE_ENV == 'production' ? '' : '/',
@@ -161,7 +160,7 @@ const webpackExports = {
     },
     watch        : NODE_ENV == 'development',
     watchOptions : { aggregateTimeout: 100 },
-    devtool      : NODE_ENV == 'development' ? config.sourceMap : null,
+    devtool      : NODE_ENV == 'development' ? 'cheap-inline-module-source-map' : null,
     resolve      : {
         modulesDirectories: [
             'node_modules',
@@ -187,7 +186,7 @@ const webpackExports = {
             test  : /\.scss$/,
             loader: ExtractTextPlugin.extract( [
                 'css',
-                'autoprefixer?browsers=last 2 versions',
+                'postcss',
                 'sass'
             ] )
         }, {
@@ -205,6 +204,15 @@ const webpackExports = {
         noParse: [
             /angular\/angular.js/
         ]
+    },
+    postcss      : [
+        require('autoprefixer')( {
+            browsers: [ 'IE 10', 'IE 11', 'firefox 20', 'ios_saf 8.4', 'android 4.3' ]
+        } ),
+        require('postcss-short')()
+    ],
+    sassLoader: {
+        outputStyle: NODE_ENV == 'development' ? 'nested' : 'compressed'
     }
 };
 
