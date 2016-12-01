@@ -16,20 +16,21 @@ const webpack = require( 'webpack' ),
 // -- helper function
 //==============================
 function addHTML( fileName ) {
+    let minifyOption = {
+        caseSensitive              : true,
+        collapseBooleanAttributes  : true,
+        collapseInlineTagWhitespace: true,
+        collapseWhitespace         : true,
+        conservativeCollapse       : true,
+        removeComments             : true
+    };
     return {
         title   : fileName + ' HTML',
         filename: path.join( config.paths.main, fileName + '.html' ),
         template: path.join( config.paths.view, fileName + '.twig' ),
         inject  : 'body',
         chunks  : [ 'common', fileName ],
-        minify  : NODE_ENV == 'production' ? {
-            caseSensitive              : true,
-            collapseBooleanAttributes  : true,
-            collapseInlineTagWhitespace: true,
-            collapseWhitespace         : true,
-            conservativeCollapse       : true,
-            removeComments             : true
-        } : false
+        minify  : NODE_ENV == 'production' ? minifyOption : false
     }
 }
 
@@ -133,19 +134,6 @@ const plugins = [
 
 addHtmlPlugin( entryPoint() );
 
-// -- minify js code from production
-if( NODE_ENV == 'production' ) {
-    plugins.push(
-        new webpack.optimize.UglifyJsPlugin( {
-            compress: {
-                warnings    : false,
-                drop_console: true,
-                unsafe      : true
-            }
-        } )
-    );
-}
-
 //==============================
 // -- Webpack export module
 //==============================
@@ -154,7 +142,7 @@ const webpackExports = {
     entry        : entryPoint(),
     output       : {
         path      : config.paths.main + '/',
-        publicPath: NODE_ENV == 'production' ? '' : '/',
+        publicPath: '/',
         filename  : "[name].js",
         library   : "[name]"
     },
@@ -215,6 +203,20 @@ const webpackExports = {
         outputStyle: NODE_ENV == 'development' ? 'nested' : 'compressed'
     }
 };
+
+// -- minify js code from production
+if( NODE_ENV == 'production' ) {
+    webpackExports.output.publicPath = '';
+    plugins.push(
+        new webpack.optimize.UglifyJsPlugin( {
+            compress: {
+                warnings    : false,
+                drop_console: true,
+                unsafe      : true
+            }
+        } )
+    );
+}
 
 /**
  * @todo development 'npm start', production 'npm run prod'
